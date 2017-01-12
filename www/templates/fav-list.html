@@ -1,0 +1,28 @@
+<ion-view view-title="{{ 'FAVOURIT' | translate}}">
+  <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in-right">
+      <div id="mySpinner" ng-show="loading" class="loading padding"><ion-spinner icon="lines"></ion-spinner> {{ 'LOADING' | translate}}</div>
+      <div ng-show="removeitom" class="removeitom padding">Itom Removed</div>
+      <div class="item card-item" ng-repeat="item in items">
+          <div class="delete_but" ng-click="refav($index)"><i class="icon ion-close-round"></i></div>
+          <div ui-sref="tab.tab-fav-single-post({ PostId: item.id})">
+            <div class="card stable-bg ink ink-dark">
+                <div class="item item-avatar item-text-wrap">
+                    <span class="avatar"><img ng-src="{{item.thumbnail}}"/></span>
+                    <strong ng-bind-html="item.title"></strong>
+                    <p ng-bind-html="item.excerpt | limitTo:60"></p>
+                    <div class="card-footer text-right">
+                        <i class="icon ion-ios-location"></i> {{item.taxonomy_location[0].title}}
+                        <div class="pull-left" ng-if="((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) > 0) && ((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) < 999)" >
+                            <i class="icon ion-clock assertive"></i> {{ 'EXPIRES' | translate}} <b>
+                            {{item.custom_fields.offer_expire | removeHTMLTags | timestampToDate }}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" ng-show='showBtn' on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

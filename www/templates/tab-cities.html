@@ -1,0 +1,21 @@
+<ion-view view-title="{{ 'CITIES' | translate}}">
+  <ion-content ng-class="{expanded:isExpanded}" class="row animate-fade-slide-in">
+        <div id="mySpinner" ng-show="loading" class="loading padding"><ion-spinner icon="lines"></ion-spinner> {{ 'LOADING' | translate}}</div>
+        <div class="list col-50 animate-fade-slide-in-right" ng-repeat="item in items">
+            <div ui-sref="tab.tab-cities-list({ listName: item.slug, listTitle: item.title})" class="card card-gallery item item-text-wrap">
+                <div class="ink dark-bg">
+                    <h2><i class="icon ion-map"></i> {{item.title}}</h2>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <div class="tab-item stable-bg assertive">
+                        <i class="icon ion-code-working"></i>
+                        {{item.post_count}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <p ng-if="items.length == 0"><strong>{{ 'NODATA' | translate}}</strong></p> -->
+
+  </ion-content>
+</ion-view>

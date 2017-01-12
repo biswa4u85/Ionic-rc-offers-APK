@@ -1,0 +1,18 @@
+<ion-view view-title="{{ 'CATEGORIES' | translate}}">
+  <ion-content ng-class="{expanded:isExpanded}" class="row animate-fade-slide-in">
+        <div id="mySpinner" ng-show="loading" class="loading padding"><ion-spinner icon="lines"></ion-spinner> {{ 'LOADING' | translate}}</div>
+        <div class="list col-50 animate-fade-slide-in-right" ng-repeat="item in items">
+            <div ui-sref="tab.tab-categories-list({ listName: item.slug, listTitle: item.title})" class="card card-gallery item item-text-wrap">
+                <div class="ink dark-bg">
+                    <h2><i class="fa fa-{{item.icon.category_icon}}"></i>  {{item.title | limitTo:12}}<span ng-if="item.title.length > 12"> ...</span></h2>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <div class="tab-item stable-bg assertive">
+                        <i class="icon ion-code-working"></i>
+                        {{item.post_count}}
+                    </div>
+                </div>
+            </div>
+        </div>
+  </ion-content>
+</ion-view>

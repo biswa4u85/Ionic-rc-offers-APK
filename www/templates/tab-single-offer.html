@@ -1,0 +1,30 @@
+<ion-view view-title="{{title}}">
+  <ion-content ng-class="{expanded:isExpanded}" class="row animate-fade-slide-in">
+            
+            <div class="card stable-bg" ng-repeat="item in items">
+                <div class="item item-avatar">
+                    <img ng-src="{{item.thumbnail}}">
+                    <h2 ng-bind-html="item.title"></h2>
+                    <p ng-if="item.custom_fields.deal_discount">
+                            <i class="icon ion-thumbsup assertive"></i> <b>
+                            {{item.custom_fields.deal_discount | removeHTMLTags}}</b> {{ 'DISCOUNT' | translate}}
+                    </p>
+                </div>
+                <div class="item item-body">
+
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-if="((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) > 0) && ((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) < 999)" >
+                            <i title="{{ 'EXPIRES' | translate}}" class="icon ion-clock assertive"></i> <b>{{item.custom_fields.offer_expire | removeHTMLTags | timestampToDate }}</b>
+                    </a>
+
+                    <a ng-click="share(item)" class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        <i title="{{ 'SHARE' | translate}}" class="icon ion-share"></i> {{ 'SHARE' | translate}}
+                    </a>
+                </div>
+            </div>
+
+            <ion-infinite-scroll ng-if="!noMoreItemsAvailable" ng-show='showBtn' on-infinite="loadMore()" distance="100%"></ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

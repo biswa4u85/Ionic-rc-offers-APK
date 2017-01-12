@@ -1,0 +1,23 @@
+<ion-view view-title="{{ 'OFFER' | translate}}">
+  <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in-right">
+      <div id="mySpinner" ng-show="loading" class="loading padding"><ion-spinner icon="lines"></ion-spinner> {{ 'LOADING' | translate}}</div>
+      <div class="item card-item" ng-repeat="item in items">
+          <div ui-sref="tab.tab-offers-single-post({ PostId: item.id})">
+            <div class="card stable-bg ink ink-dark">
+                <div class="item item-avatar item-text-wrap">
+                    <span class="avatar"><img ng-src="{{item.thumbnail}}"/></span>
+                    <strong>{{item.title}}</strong>
+                    <div class="card-footer text-right">
+                        <i class="icon ion-ios-keypad"></i> {{item.taxonomy_offer_cat[0].title}}
+                        <div class="pull-left" ng-if="((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) > 0) && ((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) < 999)" >
+                            <i class="icon ion-clock assertive"></i> {{ 'EXPIRES' | translate}} <b>
+                            {{item.custom_fields.offer_expire | removeHTMLTags | timestampToDate }}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+  </ion-content>
+</ion-view>

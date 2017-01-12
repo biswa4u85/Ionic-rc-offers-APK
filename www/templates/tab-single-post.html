@@ -1,0 +1,37 @@
+<ion-view view-title="{{item.title}}">
+  <ion-content ng-class="{expanded:isExpanded}" class="row animate-fade-slide-in">
+        <div id="mySpinner" ng-show="loading" class="loading padding"><ion-spinner icon="lines"></ion-spinner> {{ 'LOADING' | translate}}</div>
+           
+           <div ng-show="additom" class="additom padding">Itom Added</div>
+           
+            <div class="card stable-bg">
+                <div class="item item-avatar">
+                    <img ng-src="{{item.thumbnail}}">
+                    <h2>{{item.title}}</h2>
+                    <p ng-if="item.custom_fields.deal_discount">
+                            <i class="icon ion-thumbsup assertive"></i> <b>
+                            {{item.custom_fields.deal_discount | removeHTMLTags}}</b> {{ 'DISCOUNT' | translate}}
+                    </p>
+                </div>
+                <div class="item item-body">
+                    <p>
+                        <span ui-sref="tab.tab-cities-list({ listName: item.taxonomy_location[0].slug, listTitle: item.taxonomy_location[0].title})" class="subdued"><i class="icon ion-ios-location"></i>  {{item.taxonomy_location[0].title}}</span>&nbsp;&nbsp;&nbsp;
+                        <span ui-sref="tab.tab-categories-list({ listName: item.taxonomy_offer_cat[0].slug, listTitle: item.taxonomy_offer_cat[0].title})" class="subdued"><i class="icon ion-ios-keypad"></i> {{item.taxonomy_offer_cat[0].title}}</span>
+                    </p>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-if="((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) > 0) && ((item.custom_fields.offer_expire | removeHTMLTags | timestampToDate) < 999)" >
+                            <i title="{{ 'EXPIRES' | translate}}" class="icon ion-clock assertive"></i> <b>{{item.custom_fields.offer_expire | removeHTMLTags | timestampToDate }}</b>
+                    </a>
+                    <a ng-click="addfav(item);" class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        <i title="{{ 'FAVOURIT' | translate}}" class="icon ion-flag"></i> {{ 'FAVOURIT' | translate}}
+                    </a>
+                    <a ng-click="share(item)" class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        <i title="{{ 'SHARE' | translate}}" class="icon ion-share"></i> {{ 'SHARE' | translate}}
+                    </a>
+                </div>
+            </div>
+                <p class="padding main-contain editable" ng-bind-html="item.content"></p>
+
+  </ion-content>
+</ion-view>
